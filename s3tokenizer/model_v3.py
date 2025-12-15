@@ -64,12 +64,12 @@ class ResidualAttentionBlockV3(torch.nn.Module):
                                          n_head,
                                          kernel_size,
                                          use_sdpa=use_sdpa)
-        self.attn_ln = LayerNorm(n_state, eps=1e-6)
+        self.attn_ln = LayerNorm(n_state, eps=1e-5)
         n_mlp = n_state * 4
         # Set bias=True for MLP Linear layers
         self.mlp = torch.nn.Sequential(Linear(n_state, n_mlp), torch.nn.GELU(),
                                        Linear(n_mlp, n_state))
-        self.mlp_ln = LayerNorm(n_state, eps=1e-6)
+        self.mlp_ln = LayerNorm(n_state, eps=1e-5)
 
     def forward(self,
                 x: torch.Tensor,
